@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import UserContext from '../context/UserContext';
 
 function LoginForm() {
+	const { setIsLoggedIn } = useContext(UserContext);
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -32,6 +34,7 @@ function LoginForm() {
 
 			if (userCredential.user) {
 				toast.success('Signed In Successfully');
+				setIsLoggedIn(true);
 				navigate('/Home');
 			}
 		} catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -8,8 +8,10 @@ import {
 } from 'firebase/auth';
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import UserContext from '../context/UserContext';
 
 function SignUpForm() {
+	const { setIsLoggedIn } = useContext(UserContext);
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -47,7 +49,7 @@ function SignUpForm() {
 
 			await setDoc(doc(db, 'users', user.uid), formDataCopy);
 			toast.success('Account Created Successfully');
-
+			setIsLoggedIn(true);
 			navigate('/Home');
 		} catch (error) {
 			toast.error('Something went wrong with registration');

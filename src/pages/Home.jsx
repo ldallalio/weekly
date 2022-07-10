@@ -1,30 +1,22 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { getAuth } from 'firebase/auth';
+import UserExpenses from '../components/UserExpenses';
+import UserContext from '../context/UserContext';
 
 function Home() {
-	const auth = getAuth();
+	const { isLoggedIn } = useContext(UserContext);
+	console.log(isLoggedIn);
 	const navigate = useNavigate();
-	const onLogout = () => {
-		auth.signOut();
-		navigate('/');
-		toast.success('Logged Out Successfully');
-	};
+
+	//Check if user is logged in
+	useEffect(() => {
+		if (!isLoggedIn) {
+			navigate('/');
+		}
+	}, []);
 	return (
 		<div>
-			<h1>Home</h1>
-
-			<p>This is the home page.</p>
-
-			<p>
-				<a href='/dashboard'>Dashboard</a>
-			</p>
-
-			{/* button to logout */}
-			<button className='logoutBtn' onClick={onLogout}>
-				Logout
-			</button>
+			<UserExpenses />
 		</div>
 	);
 }
