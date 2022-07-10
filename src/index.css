@@ -1,13 +1,125 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Roboto', sans-serif;
+  
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body{
+  height:100vh;
+  width:100vw;
+  background-image: url('https://images.unsplash.com/photo-1497384401032-2182d2687715?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.loginFormContainer {
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  width:400px;
+  height:400px;
+  background-color: #f2f2f2bc;
+  padding:1em;
+}
+
+.loginFormContainer h1 {
+  font-size:30px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+.loginFormContainer form input {
+  width:100%;
+  height:40px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  padding:0 10px;
+  margin-bottom:20px;
+}
+
+.loginFormContainer form button {
+  width:100%;
+  height:40px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  background-color:#0f98ec;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.loginFormContainer form button:hover {
+  background-color:#000;
+  color:#fff;
+}
+
+.loginFormContainer form label {
+  font-size:12px;
+  margin-bottom:10px;
+}
+.loginFormContainer form button:active {
+  background-color:#000;
+  color:#fff;
+}
+
+.loginFormContainer form {
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+}
+
+.loginPage {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:100vw;
+  height:100vh;
+}
+
+.signUpTitle {
+  font-size:20px;
+  font-weight:bold;
+  margin: 1em;
+}
+
+.signUpButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width:75px;
+  height:40px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  background-color:#cf0404;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.signUpButton:hover {
+  background-color:#000;
+  color:#fff;
+}
+
+.logoutBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width:75px;
+  height:40px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  background-color:#cf0404;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
