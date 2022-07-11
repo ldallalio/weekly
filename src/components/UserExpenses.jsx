@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ExpenseList from './ExpenseList';
-import UserContext from '../context/UserContext';
-
+import { db } from '../firebase';
+import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 function UserExpenses() {
-	const { userId, setUserId } = useContext(UserContext);
-	setUserId(123);
+	const userId = 123;
+
+	// const collectionRef
 
 	const [formData, setFormData] = useState({
 		description: '',
@@ -69,6 +70,7 @@ function UserExpenses() {
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+
 	return (
 		<div className='userExpenseContainer'>
 			<h1>Current Spending</h1>

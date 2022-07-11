@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import UserContext from '../context/UserContext';
@@ -33,12 +33,12 @@ function LoginForm() {
 			);
 
 			if (userCredential.user) {
-				toast.success('Signed In Successfully');
+				// toast.success('Signed In Successfully');
 				setIsLoggedIn(true);
 				navigate('/Home');
 			}
 		} catch (error) {
-			toast.error('Invalid Email or Password');
+			// toast.error('Invalid Email or Password');
 		}
 	};
 

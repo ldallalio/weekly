@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import {
 	getAuth,
 	createUserWithEmailAndPassword,
@@ -48,11 +48,11 @@ function SignUpForm() {
 			formData.timestamp = serverTimestamp();
 
 			await setDoc(doc(db, 'users', user.uid), formDataCopy);
-			toast.success('Account Created Successfully');
+			// toast.success('Account Created Successfully');
 			setIsLoggedIn(true);
 			navigate('/Home');
 		} catch (error) {
-			toast.error('Something went wrong with registration');
+			// toast.error('Something went wrong with registration');
 		}
 	};
 

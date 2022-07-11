@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
 import UserContext from '../context/UserContext';
 
@@ -12,7 +12,7 @@ function LogoutButton() {
 		auth.signOut();
 		setIsLoggedIn(false);
 		navigate('/');
-		toast.success('Logged Out Successfully');
+		// toast.success('Logged Out Successfully');
 	};
 	return (
 		<button className='logoutBtn' onClick={onLogout}>

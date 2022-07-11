@@ -46,7 +46,6 @@ const signInWithGoogle = async () => {
 		if (docs.docs.length === 0) {
 			await addDoc(collection(db, 'users'), {
 				uid: user.uid,
-				name: user.displayName,
 				authProvider: 'google',
 				email: user.email,
 			});
@@ -72,9 +71,9 @@ const registerWithEmailAndPassword = async (name, email, password) => {
 		const user = res.user;
 		await addDoc(collection(db, 'users'), {
 			uid: user.uid,
-			name,
 			authProvider: 'local',
 			email,
+			name: null,
 		});
 	} catch (err) {
 		console.error(err);
@@ -99,9 +98,10 @@ const logout = () => {
 export {
 	auth,
 	db,
-	signInWithGoogle,
+	googleProvider,
 	logInWithEmailAndPassword,
+	logout,
 	registerWithEmailAndPassword,
 	sendPasswordReset,
-	logout,
+	signInWithGoogle,
 };

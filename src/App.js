@@ -6,8 +6,8 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Navbar from './components/Navbar';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from './context/UserContext';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
 					<Route path='/signup' element={<SignUp />} />
 				</Routes>
 			</BrowserRouter>
-			<ToastContainer />
+			{/* <ToastContainer /> */}
 		</UserProvider>
 	);
 }

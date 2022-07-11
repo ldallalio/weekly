@@ -1,20 +1,20 @@
 import React from 'react';
 
-async function ExpenseList(userItems) {
+function ExpenseList(userItems) {
 	console.log(userItems);
 	// eslint-disable-next-line
-	let myArr = await userItems.userItems[0].userItems;
+	let myArr = userItems.userItems[0].userItems;
 	// eslint-disable-next-line
 	myArr.map((item) => {
 		console.log(item.description);
 	});
 	return (
-		<div>
+		<div className='expenseItemContainer'>
 			<ul>
-				{myArr.map((item) => {
+				{myArr.map((item, index) => {
 					//Return each item in the array
 					return (
-						<div className='expenseItem'>
+						<div className='expenseItem' key={index}>
 							<li key={item.id}>
 								<p>{item.description}</p>
 								<p>{item.amount}</p>
