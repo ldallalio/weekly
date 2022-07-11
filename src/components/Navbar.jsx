@@ -5,8 +5,6 @@ import UserContext from '../context/UserContext';
 function Navbar() {
 	const { isLoggedIn } = useContext(UserContext);
 
-	console.log(isLoggedIn);
-
 	//Check if user is logged in
 	if (isLoggedIn) {
 		//If user is logged in, display the logout button

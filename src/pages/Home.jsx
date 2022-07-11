@@ -5,7 +5,6 @@ import UserContext from '../context/UserContext';
 
 function Home() {
 	const { isLoggedIn } = useContext(UserContext);
-	console.log(isLoggedIn);
 	const navigate = useNavigate();
 
 	//Check if user is logged in
