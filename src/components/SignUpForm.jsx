@@ -12,10 +12,11 @@ import UserContext from '../context/UserContext';
 
 function SignUpForm() {
 	const { setIsLoggedIn } = useContext(UserContext);
+	const [userId, setUserId] = useState('');
 	const [formData, setFormData] = useState({
-		name: '',
 		email: '',
 		password: '',
+		userId: '',
 	});
 	const { name, email, password } = formData;
 
@@ -42,8 +43,9 @@ function SignUpForm() {
 			const user = userCredential.user;
 			updateProfile(auth.currentUser, {
 				displayName: name,
+				userId: user.uid,
 			});
-			const formDataCopy = { ...formData };
+			const formDataCopy = { ...formData, userId: user.uid };
 			delete formDataCopy.password;
 			formData.timestamp = serverTimestamp();
 

@@ -18,6 +18,7 @@ import {
 	collection,
 	where,
 	addDoc,
+	onSnapshot,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -99,9 +100,13 @@ export {
 	auth,
 	db,
 	googleProvider,
+	query,
 	logInWithEmailAndPassword,
 	logout,
 	registerWithEmailAndPassword,
 	sendPasswordReset,
 	signInWithGoogle,
+	getDocs,
+	collection,
+	onSnapshot,
 };
