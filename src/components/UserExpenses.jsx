@@ -3,19 +3,22 @@ import ExpenseList from './ExpenseList';
 import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
+import UserContext from '../context/UserContext';
 
 function UserExpenses() {
+	const { isLoggedIn } = useContext(UserContext);
+
 	const navigate = useNavigate();
+	if (!isLoggedIn) {
+		console.log('User is not logged in');
+		navigate('/');
+	}
+
 	/*************************************
 	 * Users
 	 * ************************************/
-	useEffect(() => {
-		if (userId === '' || !userId || userId === undefined) {
-			navigate('/');
-		}
-	}, []);
+
 	const userId = auth.currentUser.uid;
-	console.log(userId);
 
 	const [formData, setFormData] = useState({
 		description: '',

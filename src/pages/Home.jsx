@@ -1,18 +1,8 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserExpenses from '../components/UserExpenses';
 import UserContext from '../context/UserContext';
-import {
-	auth,
-	db,
-	getDocs,
-	collection,
-	query,
-	onSnapshot,
-	doc,
-	deleteDoc,
-	where,
-} from '../firebase';
 
 function Home() {
 	const { isLoggedIn } = useContext(UserContext);
@@ -20,7 +10,7 @@ function Home() {
 
 	//Check if user is logged in
 	useEffect(() => {
-		if (!isLoggedIn && !auth.currentUser) {
+		if (!isLoggedIn) {
 			navigate('/');
 		}
 	}, []);
