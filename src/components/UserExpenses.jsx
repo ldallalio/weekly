@@ -1,75 +1,52 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ExpenseList from './ExpenseList';
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
-function UserExpenses() {
-	const userId = 123;
 
-	// const collectionRef
+function UserExpenses() {
+	const navigate = useNavigate();
+	/*************************************
+	 * Users
+	 * ************************************/
+	useEffect(() => {
+		if (userId === '' || !userId || userId === undefined) {
+			navigate('/');
+		}
+	}, []);
+	const userId = auth.currentUser.uid;
+	console.log(userId);
 
 	const [formData, setFormData] = useState({
 		description: '',
 		amount: '',
+		expenseId: 1 + Math.random(),
 	});
-	const [expenseItems, setExpenseItems] = useState([
-		{
-			uid: 123,
-			userItems: [
-				{ id: 1, description: 'Rent', amount: 950 },
-				{ id: 2, description: 'Coffee', amount: 2.5 },
-				{ id: 3, description: 'Restaurant', amount: -10 },
-			],
-		},
-		{
-			uid: 1234,
-			userItems: [
-				{ id: 1, description: 'Subway', amount: 950 },
-				{ id: 2, description: 'Pizza', amount: 2.5 },
-				{ id: 3, description: 'Steak', amount: -10 },
-			],
-		},
-	]);
 
-	//Check for userId in expenseItems
-	const userItems =
-		expenseItems
-			.filter(
-				(expenseItem) => {
-					return expenseItem.uid === userId;
-				},
-				//If userId is found, return userItems
-			)
-			.map(
-				(expenseItem) => {
-					return expenseItem.userItems;
-				},
-				//If userId is not found, return empty array
-			).length > 0
-			? expenseItems.filter((expenseItem) => {
-					return expenseItem.uid === userId;
-			  })
-			: [];
+	/*************************************
+	 * Form Data
+	 * ************************************/
 
-	const onSubmit = async (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
-		const newExpenseItem = {
-			id: expenseItems.length + 1,
-			...formData,
-		};
-
-		setExpenseItems([...expenseItems, newExpenseItem]);
-
+		//doc ref
+		const expenseRef = collection(db, 'users/' + userId + '/expenses');
+		//set doc
+		setDoc(doc(expenseRef), formData);
+		//reset form
 		setFormData({
 			description: '',
 			amount: '',
+			expenseId: 1 + Math.random(),
 		});
-
-		// console.log(expenseItems);
 	};
-
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+
+	/*************************************
+	 * Return Expenses
+	 * ************************************/
 
 	return (
 		<div className='userExpenseContainer'>
@@ -90,11 +67,13 @@ function UserExpenses() {
 						onChange={onChange}
 						name='amount'
 					/>
-					<button className='addExpenseButton'>Add Expense</button>
+					<button className='addExpenseButton' onClick={onSubmit}>
+						Add Expense
+					</button>
 				</form>
 			</div>
 			<div className='expenseListContainer'>
-				<ExpenseList userItems={userItems} />
+				<ExpenseList />
 			</div>
 		</div>
 	);
