@@ -238,3 +238,32 @@ list-style-type: none;
 .desc{
     width:200px;
 }
+
+
+.budget{
+    display:flex;
+    align-items: center;
+    width:250px;
+}
+.budget h2, .spent h2 {
+    margin-right:30px;
+    float:left;
+    font-size:20px;
+    font-weight:bold;
+}
+.budget h3 {
+    font-size:20px;
+    font-weight:bold;
+}
+
+.spent h3 {
+    font-size:20px;
+    font-weight:bold;
+    margin-left:13px;
+}
+.spent{
+    display:flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width:250px;
+}

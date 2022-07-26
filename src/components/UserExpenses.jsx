@@ -1,30 +1,46 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ExpenseList from './ExpenseList';
 import { db, auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
 import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import UserContext from '../context/UserContext';
 
 function UserExpenses() {
-	const { isLoggedIn } = useContext(UserContext);
+	const { storedId } = useContext(UserContext);
 
-	const navigate = useNavigate();
-	if (!isLoggedIn) {
-		console.log('User is not logged in');
-		navigate('/');
-	}
+	let userId = '';
 
 	/*************************************
 	 * Users
 	 * ************************************/
-
-	const userId = auth.currentUser.uid;
 
 	const [formData, setFormData] = useState({
 		description: '',
 		amount: '',
 		expenseId: 1 + Math.random(),
 	});
+	/*************************************
+	 * User Expenses
+	 * ************************************/
+	const [expenses, setExpenses] = useState(100);
+	const [expArr, setExpArr] = useState([]);
+	//Get exp amounts from localStorage
+	const getExpenses = () => {
+		const exp = localStorage.getItem('expAmount');
+		console.log(exp);
+
+		if (exp) {
+			setExpArr(JSON.parse(exp));
+		}
+	};
+
+	const addExpense = () => {
+		console.log('Adding Expenses');
+		console.log(expArr);
+	};
+	useEffect(() => {
+		getExpenses();
+		addExpense();
+	}, []);
 
 	/*************************************
 	 * Form Data
@@ -33,7 +49,7 @@ function UserExpenses() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		//doc ref
-		const expenseRef = collection(db, 'users/' + userId + '/expenses');
+		const expenseRef = collection(db, 'users/' + storedId + '/expenses');
 		//set doc
 		setDoc(doc(expenseRef), formData);
 		//reset form
@@ -53,7 +69,14 @@ function UserExpenses() {
 
 	return (
 		<div className='userExpenseContainer'>
-			<h1>Current Spending</h1>
+			{/* <div className='budget'>
+				<h2>Budget</h2>
+				<h3>$0</h3>
+			</div> */}
+			{/* <div className='spent'>
+				<h2>Spent</h2>
+				<h3>${expenses}</h3>
+			</div> */}
 			<div className='expenseInputContainer'>
 				<form onSubmit={onSubmit}>
 					<input

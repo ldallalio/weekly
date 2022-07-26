@@ -13,7 +13,7 @@ function Home() {
 		if (!isLoggedIn) {
 			navigate('/');
 		}
-	}, []);
+	}, [isLoggedIn, navigate]);
 	return (
 		<div>
 			<UserExpenses />

@@ -2,6 +2,8 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+//import navigation
+import { useNavigate } from 'react-router-dom';
 
 const UserContext = createContext();
 
@@ -12,17 +14,26 @@ export const UserProvider = ({ children }) => {
 	const auth = getAuth();
 	const user = auth.currentUser;
 
+	const storedId = localStorage.getItem('userId');
+
+	// console.log('Local storage' + storedId);
 	useEffect(() => {
-		if (user) {
+		if (storedId) {
+			setUserId(storedId);
 			setIsLoggedIn(true);
 		} else {
-			setIsLoggedIn(false);
+			if (user) {
+				setUserId(user.uid);
+				localStorage.setItem('userId', user.uid);
+				setIsLoggedIn(true);
+			} else {
+				setIsLoggedIn(false);
+			}
 		}
 	}, []);
-
 	return (
 		<UserContext.Provider
-			value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}>
+			value={{ isLoggedIn, setIsLoggedIn, userId, storedId }}>
 			{children}
 		</UserContext.Provider>
 	);
