@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
 				setIsLoggedIn(false);
 			}
 		}
-	}, [user]);
+	}, []);
 	return (
 		<UserContext.Provider
 			value={{ isLoggedIn, setIsLoggedIn, userId, storedId }}>
