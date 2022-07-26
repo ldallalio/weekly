@@ -26,20 +26,14 @@ function UserExpenses() {
 	//Get exp amounts from localStorage
 	const getExpenses = () => {
 		const exp = localStorage.getItem('expAmount');
-		console.log(exp);
 
 		if (exp) {
 			setExpArr(JSON.parse(exp));
 		}
 	};
 
-	const addExpense = () => {
-		console.log('Adding Expenses');
-		console.log(expArr);
-	};
 	useEffect(() => {
 		getExpenses();
-		addExpense();
 	}, []);
 
 	/*************************************

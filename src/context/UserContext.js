@@ -18,11 +18,11 @@ export const UserProvider = ({ children }) => {
 
 	// console.log('Local storage' + storedId);
 	useEffect(() => {
-		if (storedId) {
+		if (storedId === user.uid) {
 			setUserId(storedId);
 			setIsLoggedIn(true);
 		} else {
-			if (user) {
+			if (user.uid != storedId) {
 				setUserId(user.uid);
 				localStorage.setItem('userId', user.uid);
 				setIsLoggedIn(true);
@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
 				setIsLoggedIn(false);
 			}
 		}
-	}, []);
+	}, [user]);
 	return (
 		<UserContext.Provider
 			value={{ isLoggedIn, setIsLoggedIn, userId, storedId }}>

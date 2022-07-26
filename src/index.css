@@ -149,13 +149,14 @@ justify-content: center;
 align-items: center;
 width:100%;
 height:100%;
-color:white
+
 }
 
 .userExpenseContainer h1 {
 font-size:30px;
 font-weight:bold;
 margin-bottom:20px;
+color:white;
 }
 
 
