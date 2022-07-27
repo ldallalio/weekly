@@ -27,6 +27,7 @@ function ExpenseList() {
 
 	useEffect(() => {
 		setCurrentUserId(storedId);
+		console.log('storedId', storedId);
 		getDocs(usersRef)
 			.then((snapshot) => {
 				setUsers(snapshot.docs.map((doc) => doc.data()));
@@ -53,7 +54,7 @@ function ExpenseList() {
 				localStorage.setItem('expAmount', JSON.stringify(expValues));
 			});
 		});
-	}, [expArr]);
+	}, [currentUserId]);
 
 	//Delete Expense
 	const deleteExpense = (id) => {

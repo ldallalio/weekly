@@ -6,7 +6,6 @@ import UserContext from '../context/UserContext';
 
 function UserExpenses() {
 	const { storedId } = useContext(UserContext);
-
 	let userId = '';
 
 	/*************************************

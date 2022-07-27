@@ -13,30 +13,39 @@ export const UserProvider = ({ children }) => {
 
 	const auth = getAuth();
 	const user = auth.currentUser;
-	let tempUserId = '';
-	if (!user) {
-		tempUserId = 0;
-	} else {
-		tempUserId = user.uid;
-	}
+	// let tempUserId = '';
+	// if (!user) {
+	// 	console.log('no user');
+	// 	tempUserId = 0;
+	// } else {
+	// 	console.log('user', user.uid);
+	// 	tempUserId = user.uid;
+	// }
 
 	const storedId = localStorage.getItem('userId');
 
 	// console.log('Local storage' + storedId);
 	useEffect(() => {
-		if (storedId === tempUserId) {
-			setUserId(storedId);
-			setIsLoggedIn(true);
-		} else {
-			if (tempUserId != storedId) {
-				setUserId(tempUserId);
-				localStorage.setItem('userId', tempUserId);
+		if (user) {
+			console.log('user is logged in', user.uid);
+			//Check if user id is in local storage is the same as the user id
+			if (storedId === user.uid) {
 				setIsLoggedIn(true);
-			} else {
-				setIsLoggedIn(false);
+				setUserId(user.uid);
 			}
+			//If not equal, then set local storage to the user id
+			else {
+				localStorage.setItem('userId', user.uid);
+				setIsLoggedIn(true);
+				setUserId(user.uid);
+			}
+		} else {
+			console.log('no user');
+			setIsLoggedIn(false);
+			setUserId('');
+			localStorage.removeItem('userId');
 		}
-	}, [user]);
+	}, [user, storedId]);
 	return (
 		<UserContext.Provider
 			value={{ isLoggedIn, setIsLoggedIn, userId, storedId }}>

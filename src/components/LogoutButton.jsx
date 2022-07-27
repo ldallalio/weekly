@@ -11,6 +11,7 @@ function LogoutButton() {
 	const onLogout = () => {
 		auth.signOut();
 		setIsLoggedIn(false);
+		localStorage.removeItem('userId');
 		navigate('/');
 		// toast.success('Logged Out Successfully');
 	};

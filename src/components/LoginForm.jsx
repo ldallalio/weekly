@@ -35,6 +35,8 @@ function LoginForm() {
 			if (userCredential.user) {
 				// toast.success('Signed In Successfully');
 				setIsLoggedIn(true);
+				console.log('from login', auth.currentUser.uid);
+				localStorage.setItem('userId', auth.currentUser.uid);
 				navigate('/Home');
 			}
 		} catch (error) {
