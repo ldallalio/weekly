@@ -6,6 +6,7 @@ import UserContext from '../context/UserContext';
 
 function UserExpenses() {
 	const { storedId } = useContext(UserContext);
+
 	let userId = '';
 
 	/*************************************
@@ -45,12 +46,18 @@ function UserExpenses() {
 		const expenseRef = collection(db, 'users/' + storedId + '/expenses');
 		//set doc
 		setDoc(doc(expenseRef), formData);
-		//reset form
+		//reset form data
 		setFormData({
 			description: '',
 			amount: '',
 			expenseId: 1 + Math.random(),
 		});
+
+		//Clear Input Fields
+		document.getElementsByClassName('expenseInput')[0].value = '';
+		document.getElementsByClassName('expenseInput')[1].value = '';
+
+		//get all expenses
 	};
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -62,14 +69,6 @@ function UserExpenses() {
 
 	return (
 		<div className='userExpenseContainer'>
-			{/* <div className='budget'>
-				<h2>Budget</h2>
-				<h3>$0</h3>
-			</div> */}
-			{/* <div className='spent'>
-				<h2>Spent</h2>
-				<h3>${expenses}</h3>
-			</div> */}
 			<div className='expenseInputContainer'>
 				<form onSubmit={onSubmit}>
 					<input

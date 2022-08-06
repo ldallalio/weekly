@@ -41,20 +41,20 @@ function ExpenseList() {
 	 * Expenses
 	 * ************************************/
 
-	useEffect(() => {
-		const snapRef2 = collection(db, 'users/' + storedId + '/expenses');
-		onSnapshot(snapRef2, (snapshot) => {
-			snapshot.forEach((doc) => {
-				//Push each expense to the expenses array
-				expArr.push([doc.data(), doc.id]);
-				setExpenses(expArr);
-				expArr.map((exp) => {
-					expValues.push(exp[0].amount);
-				});
-				localStorage.setItem('expAmount', JSON.stringify(expValues));
+	// useEffect(() => {
+	const snapRef2 = collection(db, 'users/' + storedId + '/expenses');
+	onSnapshot(snapRef2, (snapshot) => {
+		snapshot.forEach((doc) => {
+			//Push each expense to the expenses array
+			expArr.push([doc.data(), doc.id]);
+			setExpenses(expArr);
+			expArr.map((exp) => {
+				expValues.push(exp[0].amount);
 			});
+			localStorage.setItem('expAmount', JSON.stringify(expValues));
 		});
-	}, [currentUserId]);
+	});
+	// }, [expArr]);
 
 	//Delete Expense
 	const deleteExpense = (id) => {
