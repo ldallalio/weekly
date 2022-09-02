@@ -6,6 +6,7 @@ import UserContext from '../context/UserContext';
 
 function UserExpenses() {
 	const { storedId } = useContext(UserContext);
+	const [isLoading, setIsLoading] = useState(true);
 
 	let userId = '';
 
@@ -21,19 +22,23 @@ function UserExpenses() {
 	/*************************************
 	 * User Expenses
 	 * ************************************/
-	const [expenses, setExpenses] = useState(100);
-	const [expArr, setExpArr] = useState(['']);
+	const [expenses, setExpenses] = useState(0);
+
 	//Get exp amounts from localStorage
-	const getExpenses = () => {
-		const exp = localStorage.getItem('expAmount');
+	const exp = JSON.parse(localStorage.getItem('expAmount'));
 
-		if (exp) {
-			setExpArr(JSON.parse(exp));
+	const addExpenses = () => {
+		let sum = 0;
+		for (let i = 0; i < exp.length; i++) {
+			sum += parseFloat(exp[i]);
 		}
+		setExpenses(sum);
 	};
-
 	useEffect(() => {
-		// getExpenses();
+		console.log(exp);
+		console.log(expenses);
+		addExpenses();
+		setIsLoading(false);
 	}, []);
 
 	/*************************************
@@ -66,9 +71,20 @@ function UserExpenses() {
 	/*************************************
 	 * Return Expenses
 	 * ************************************/
-
+	if (isLoading) {
+		return <h1>Loading</h1>;
+	}
 	return (
 		<div className='userExpenseContainer'>
+			<div className='spent'>
+				<div className='spentText'>
+					<h2>Spent</h2>
+				</div>
+				<div className='spentTotal'>
+					{console.log(expenses)}
+					<h2>{expenses}</h2>
+				</div>
+			</div>
 			<div className='expenseInputContainer'>
 				<form onSubmit={onSubmit}>
 					<input

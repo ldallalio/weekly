@@ -5,6 +5,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import UserContext from '../context/UserContext';
 
 function LoginForm() {
+	// localStorage.setItem('expAmount', 0);
 	const { setIsLoggedIn } = useContext(UserContext);
 	const [formData, setFormData] = useState({
 		email: '',

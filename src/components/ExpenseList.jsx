@@ -43,18 +43,15 @@ function ExpenseList() {
 	useEffect(() => {
 		getExpenses();
 	}, [expenses]);
-	let getExpenses = async () => {
+	let getExpenses = () => {
 		const snapRef2 = collection(db, 'users/' + storedId + '/expenses');
 		onSnapshot(snapRef2, (snapshot) => {
 			expArr = [];
 			snapshot.forEach((doc) => {
-				// console.log(doc.data());
 				//Push each expense to the expenses array
 				expArr.push([doc.data(), doc.id]);
 				setExpenses(expArr);
-				// expArr.map((exp) => {
-				// 	expValues.push(exp[0].amount);
-				// });
+				expValues.push(doc.data().amount);
 				localStorage.setItem('expAmount', JSON.stringify(expValues));
 			});
 		});
@@ -71,7 +68,6 @@ function ExpenseList() {
 		expArr.splice(id.target.id, 1);
 		getExpenses();
 	};
-	getExpenses();
 	/*************************************
 	 * Return Expenses
 	 * ************************************/
@@ -85,7 +81,6 @@ function ExpenseList() {
 			<h1>Expense List</h1>
 			<ul>
 				{expenses.map((expense) => {
-					// expValues.push(expense[0].amount);
 					return (
 						<li className='expenseItem' key={expense[0].expenseId}>
 							<p className='desc'>{expense[0].description}</p>

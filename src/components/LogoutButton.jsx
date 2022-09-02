@@ -14,6 +14,7 @@ function LogoutButton() {
 		localStorage.removeItem('userId');
 		navigate('/');
 		// toast.success('Logged Out Successfully');
+		localStorage.setItem('expAmount', 0);
 	};
 	return (
 		<button className='logoutBtn' onClick={onLogout}>
