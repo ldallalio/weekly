@@ -22,7 +22,7 @@ function UserExpenses() {
 	 * User Expenses
 	 * ************************************/
 	const [expenses, setExpenses] = useState(100);
-	const [expArr, setExpArr] = useState([]);
+	const [expArr, setExpArr] = useState(['']);
 	//Get exp amounts from localStorage
 	const getExpenses = () => {
 		const exp = localStorage.getItem('expAmount');
@@ -33,7 +33,7 @@ function UserExpenses() {
 	};
 
 	useEffect(() => {
-		getExpenses();
+		// getExpenses();
 	}, []);
 
 	/*************************************

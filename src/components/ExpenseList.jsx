@@ -14,7 +14,7 @@ import UserContext from '../context/UserContext';
 
 function ExpenseList() {
 	const usersRef = collection(db, 'users');
-	const expArr = [];
+	let expArr = [''];
 	const [expenses, setExpenses] = useState([]);
 	const [users, setUsers] = useState([]);
 	const [currentUserId, setCurrentUserId] = useState('');
@@ -27,7 +27,7 @@ function ExpenseList() {
 
 	useEffect(() => {
 		setCurrentUserId(storedId);
-		console.log('storedId', storedId);
+		// console.log('storedId', storedId);
 		getDocs(usersRef)
 			.then((snapshot) => {
 				setUsers(snapshot.docs.map((doc) => doc.data()));
@@ -40,22 +40,25 @@ function ExpenseList() {
 	/*************************************
 	 * Expenses
 	 * ************************************/
-
-	// useEffect(() => {
-	const snapRef2 = collection(db, 'users/' + storedId + '/expenses');
-	onSnapshot(snapRef2, (snapshot) => {
-		snapshot.forEach((doc) => {
-			//Push each expense to the expenses array
-			expArr.push([doc.data(), doc.id]);
-			setExpenses(expArr);
-			expArr.map((exp) => {
-				expValues.push(exp[0].amount);
+	useEffect(() => {
+		getExpenses();
+	}, [expenses]);
+	let getExpenses = async () => {
+		const snapRef2 = collection(db, 'users/' + storedId + '/expenses');
+		onSnapshot(snapRef2, (snapshot) => {
+			expArr = [];
+			snapshot.forEach((doc) => {
+				// console.log(doc.data());
+				//Push each expense to the expenses array
+				expArr.push([doc.data(), doc.id]);
+				setExpenses(expArr);
+				// expArr.map((exp) => {
+				// 	expValues.push(exp[0].amount);
+				// });
+				localStorage.setItem('expAmount', JSON.stringify(expValues));
 			});
-			localStorage.setItem('expAmount', JSON.stringify(expValues));
 		});
-	});
-	// }, [expArr]);
-
+	};
 	//Delete Expense
 	const deleteExpense = (id) => {
 		//expense ref is the reference to the expense in the database
@@ -66,14 +69,15 @@ function ExpenseList() {
 		deleteDoc(expenseRef);
 		//Remove the expense from the expenses array
 		expArr.splice(id.target.id, 1);
-		setExpenses(expArr);
+		getExpenses();
 	};
+	getExpenses();
 	/*************************************
 	 * Return Expenses
 	 * ************************************/
 
 	if (!users[0]) {
-		return <div>Loading..</div>;
+		return <div>No Expenses</div>;
 	}
 	return (
 		// <h1>testing</h1>
@@ -81,7 +85,7 @@ function ExpenseList() {
 			<h1>Expense List</h1>
 			<ul>
 				{expenses.map((expense) => {
-					expValues.push(expense[0].amount);
+					// expValues.push(expense[0].amount);
 					return (
 						<li className='expenseItem' key={expense[0].expenseId}>
 							<p className='desc'>{expense[0].description}</p>

@@ -13,14 +13,6 @@ export const UserProvider = ({ children }) => {
 
 	const auth = getAuth();
 	const user = auth.currentUser;
-	// let tempUserId = '';
-	// if (!user) {
-	// 	console.log('no user');
-	// 	tempUserId = 0;
-	// } else {
-	// 	console.log('user', user.uid);
-	// 	tempUserId = user.uid;
-	// }
 
 	const storedId = localStorage.getItem('userId');
 
